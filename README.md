@@ -29,7 +29,14 @@ then \
 ## Summary
 - [Important](#important)
 - [Product](#product)
+    - [Get All](#get-all-products)
+    - [Get By ID](#get-product-by-id)
+    - [Add](#add-product)
+    - [Edit](#edit-product)
+    - [Remove](#remove-product)
 - [User](#user)
+    - [Login](#login)
+    - [Signup](#signup)
 
 
 ## Important
@@ -38,7 +45,7 @@ Add Authentification: **Bearer Token**
 
 ## Product
 
-### Get All Product
+### Get All Products
 #### Request
 ```http
 GET /api/product/
@@ -179,7 +186,7 @@ POST /api/user/signup
 {
     "first_name": string,
     "last_name" : string,
-	"email"     : string,
-	"password"  : string
+    "email"     : string,
+    "password"  : string
 }
 ```
