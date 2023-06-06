@@ -1,0 +1,44 @@
+<%- 
+    include("../_partials/head", {
+        title: "Home",
+        id: "home"
+    }) 
+%>
+
+<div class="container-aside">
+  <aside>
+    Logo
+
+    <h2>Explore</h2>
+
+    <ul>
+        <li><a href="#"><img src="/assets/img/icons/image 15.png" alt="">New in</a></li>
+        <li><a href="#"><img src="/assets/img/icons/image 9.png" alt="">Clothing</a></li>
+        <li><a href="#"><img src="/assets/img/icons/image 8.png" alt="">Shoes</a></li>
+        <li><a href="#"><img src="/assets/img/icons/image 7.png" alt="">Accessoires</a></li>
+        <li><a href="#"><img src="/assets/img/icons/image 6.png" alt="">Activewear</a></li>
+        <li><a href="#"><img src="/assets/img/icons/image 4.png" alt="">Gifts & Living</a></li>
+        <li><a href="#"><img src="/assets/img/icons/image 5.png" alt="">Inspiration</a></li>
+    </ul>
+
+    <% for(let i = 0; i < results.length; i++) { %>
+    <div>Product: <%= results[i].name %></div>
+    <% } %>
+  </aside>
+
+  <div>
+    <%- include("../_partials/header") %>
+    <main>
+        <div class="content-1"><img src="/assets/img/home/Group 14.png" alt=""></div>
+        <div class="content-2"><img src="/assets/img/home/Group.png" alt=""></div>
+        <div class="content-3"><img src="/assets/img/home/image 33.png" alt=""></div>
+        <div class="content-4"><img src="/assets/img/home/image 34.png" alt=""></div>
+        <div class="content-5"><img src="/assets/img/home/image 35.png" alt=""></div>
+        <div class="content-6"><img src="/assets/img/home/image 36.png" alt=""></div>
+        <div class="content-7"><img src="/assets/img/home/image 37.png" alt=""></div>
+        <div class="content-8"><img src="/assets/img/home/image 38.png" alt=""></div>
+    </main>
+  </div>
+</div>
+
+<%- include("../_partials/footer") %>
