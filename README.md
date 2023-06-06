@@ -44,7 +44,7 @@ Add Authentification: **Bearer Token**
 GET /api/product/
 ```
 #### Responses
-```json
+```javascript
 [
 	{
 		"id"            : int,
@@ -76,7 +76,7 @@ GET /api/product/:id
 | `id` | `int` |
 
 #### Response
-```json
+```javascript
 {
     "id"            : int,
     "name"          : string,
@@ -93,7 +93,7 @@ GET /api/product/:id
 POST /api/product/
 ```
 #### Header
-```json
+```javascript
 {
     "name"          : string,
     "description"   : string,
@@ -113,7 +113,7 @@ PUT /api/product/:id
 | `id` | `int` |
 
 #### Header: JSON
-```json
+```javascript
 {
     "name"          : string,
     "description"   : string,
@@ -123,11 +123,11 @@ PUT /api/product/:id
 }
 ```
 #### Response
-```json
+```javascript
 int (LastID)
 ```
 OR
-```json
+```javascript
 {
     "error": string
 }
@@ -143,11 +143,11 @@ DELETE /api/product/:id
 | `id` | `int` |
 
 #### Response
-```json
+```javascript
 1
 ```
 OR
-```json
+```javascript
 {
     "error": string
 }
@@ -162,7 +162,7 @@ OR
 POST /api/user/login
 ```
 #### Header: JSON
-```json
+```javascript
 {
 	"email"     : string,
 	"password"  : string
@@ -175,7 +175,7 @@ POST /api/user/login
 POST /api/user/signup
 ```
 #### Header: JSON
-```json
+```javascript
 {
     "first_name": string,
     "last_name" : string,
