@@ -1,7 +1,7 @@
 const express = require('express');
-const db = require('./server/data/sqlite3');
-const productRouter = require('./server/router/ProductRouter');
-const UserRouter = require('./server/router/userRouter');
+const db = require('./data/sqlite3');
+const productRouter = require('./router/ProductRouter');
+const UserRouter = require('./router/userRouter');
 
 // Connect to database SQLite
 db.connect()
