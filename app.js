@@ -23,4 +23,6 @@ app.use('/api/product', productRouter)
 
 // app.use('/', StoreControllerIndex);
 // app.use('/mon-compte', CompteBancaireController);
-app.listen(3000);
+// app.listen(3000);
+
+export default app
