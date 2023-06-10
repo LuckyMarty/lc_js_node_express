@@ -10,7 +10,7 @@ const login = async (email, password) => {
         if (await bcrypt.compare(password, result.password)) {
             delete result.password
             const token = jwt.sign(result, 'maSuperCle');
-            return { message: "User connected", token }
+            return { message: "User connected", token, email }
         }
         else {
             return { error: "User and/or Password incorrect" }
@@ -18,7 +18,6 @@ const login = async (email, password) => {
     } else {
         return { error: "User and/or Password incorrect" }
     }
-
 }
 
 const signup = async (firstname, lastname, email, password) => {
@@ -26,7 +25,6 @@ const signup = async (firstname, lastname, email, password) => {
     if (isEmail(email)) return { error: "Your email must be in a correct format" };
 
     const userExist = await db.database.get('SELECT email FROM users WHERE email=?', email)
-    console.log(userExist);
     if (userExist !== undefined) return { error: "This email is already used" }
 
     const hash = await bcrypt.hash(password, saltRounds)
@@ -35,11 +33,18 @@ const signup = async (firstname, lastname, email, password) => {
         'INSERT INTO users (firstname, lastname, email, password) VALUES (?,?,?,?)',
         firstname, lastname, email, hash
     )
-    // console.log(result);
     if (result.lastID) return result
     else return { error: "Can't add user" }
+}
 
+const dataDetails = async (email) => {
+    const result = await db.database.get('SELECT firstname, lastname, email, role FROM users WHERE email=?', email)
+    if (result) {
+        return { data: result }
 
+    } else {
+        return { error: "Connection failed" }
+    }
 }
 
 
@@ -52,5 +57,6 @@ const isEmail = (email) => {
 
 module.exports = {
     login,
-    signup
+    signup,
+    dataDetails
 }

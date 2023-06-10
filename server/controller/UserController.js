@@ -11,7 +11,13 @@ const signup = async (req, res) => {
     res.json(result)
 }
 
+const dataDetails = async (req, res) => {
+    const result = await UserModel.dataDetails(req.body.email)
+    res.json(result)
+}
+
 module.exports = {
     login,
-    signup
+    signup,
+    dataDetails
 }
