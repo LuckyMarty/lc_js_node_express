@@ -21,13 +21,19 @@ const login = async (email, password) => {
 
 }
 
-const signup = async (email, password) => {
+const signup = async (firstname, lastname, email, password) => {
+
+    if (isEmail(email)) return { error: "Your email must be in a correct format" };
+
+    const userExist = await db.database.get('SELECT email FROM users WHERE email=?', email)
+    console.log(userExist);
+    if (userExist !== undefined) return { error: "This email is already used" }
 
     const hash = await bcrypt.hash(password, saltRounds)
     // Store hash in your password DB.
     const result = await db.database.run(
-        'INSERT INTO users (email,password) VALUES (?,?)',
-        email, hash
+        'INSERT INTO users (firstname, lastname, email, password) VALUES (?,?,?,?)',
+        firstname, lastname, email, hash
     )
     // console.log(result);
     if (result.lastID) return result
@@ -35,6 +41,14 @@ const signup = async (email, password) => {
 
 
 }
+
+
+const isEmail = (email) => {
+    let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (email.match(regex)) return true; 
+    else return false; 
+}
+
 
 module.exports = {
     login,

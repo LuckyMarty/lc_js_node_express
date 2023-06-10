@@ -1,12 +1,16 @@
 const express = require('express');
-const db = require('./data/sqlite3');
-const productRouter = require('./router/ProductRouter');
-const UserRouter = require('./router/userRouter');
+const db = require('./server/data/sqlite3');
+const productRouter = require('./server/router/ProductRouter');
+const UserRouter = require('./server/router/userRouter');
+const cors = require('cors')
+
 
 // Connect to database SQLite
 db.connect()
 
 const app = express();
+
+app.use(cors());
 
 app.set('views', './server/view');
 app.set('view engine', 'ejs');
@@ -23,6 +27,4 @@ app.use('/api/product', productRouter)
 
 // app.use('/', StoreControllerIndex);
 // app.use('/mon-compte', CompteBancaireController);
-// app.listen(3000);
-
-export default app
+app.listen(3000);

@@ -7,7 +7,7 @@ const login = async (req, res) => {
 }
 
 const signup = async (req, res) => {
-    const result = await UserModel.signup(req.body.email, req.body.password)
+    const result = await UserModel.signup(req.body.firstname, req.body.lastname,req.body.email, req.body.password)
     res.json(result)
 }
 

@@ -184,8 +184,8 @@ POST /api/user/signup
 #### Header: JSON
 ```javascript
 {
-    "first_name": string,
-    "last_name" : string,
+    "firstname" : string,
+    "lastname"  : string,
     "email"     : string,
     "password"  : string
 }
