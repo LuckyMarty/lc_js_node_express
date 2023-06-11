@@ -37,11 +37,13 @@ then \
 - [User](#user)
     - [Login](#login)
     - [Signup](#signup)
+    - [Data](#data)
 
 
 ## Important
 For `POST`, `PUT` and `DELETE` \
-Add Authentification: **Bearer Token**
+Add Authentification: **Bearer Token** \
+Except for **Login** and **Signup**
 
 ## Product
 
@@ -188,5 +190,19 @@ POST /api/user/signup
     "lastname"  : string,
     "email"     : string,
     "password"  : string
+}
+```
+
+### Data
+#### Request
+```http
+POST /api/user/data
+```
+#### Response: JSON
+```javascript
+{
+    "firstname" : string,
+    "lastname"  : string,
+    "email"     : string
 }
 ```

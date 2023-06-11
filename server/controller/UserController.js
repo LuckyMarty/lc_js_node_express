@@ -12,7 +12,6 @@ const signup = async (req, res) => {
 }
 
 const data = async (req, res) => {
-    console.log(req.user.email);
     const result = await UserModel.data(req.user.email)
     res.json(result);
 }
