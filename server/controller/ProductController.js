@@ -14,11 +14,12 @@ const getById = async (req, res) => {
 
 const add = async (req, res) => {
     const result = await ProductModel.add(req.body.name, req.body.description, req.body.image, req.body.quantity, req.body.price)
-    res.status(200).json(result.lastID)
+    console.log(result);
+    res.status(200).json(result)
 }
 
 const edit = async (req, res) => {
-    const result = await ProductModel.edit(req.params.id, req.body.nom, req.body.description, req.body.prix, req.body.photo)
+    const result = await ProductModel.edit(req.params.id, req.body.name, req.body.description, req.body.image, req.body.quantity, req.body.price)
     res.status(200).json(result.changes)
 }
 

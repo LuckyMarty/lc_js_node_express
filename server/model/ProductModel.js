@@ -11,6 +11,9 @@ const getById = async (id) => {
 }
 
 const add = async (name, description, image, quantity, price) => {
+
+    if (!name) return { error: "Product Name shouldn't be empty" }
+
     try {
         const result = await db.database.run(
             'INSERT INTO products (name, description, image, quantity, price) VALUES (?,?,?,?,?)',
@@ -26,7 +29,7 @@ const add = async (name, description, image, quantity, price) => {
 
 const edit = async (id, name, description, image, quantity, price) => {
     const result = await db.database.run(
-        'UPDATE products SET name=?, image, quantity, price=?, quantity=?, price=? WHERE id=?',
+        'UPDATE products SET name=?, description=?, image=?, quantity=?, price=? WHERE id=?',
         name, description, image, quantity, price, id
     )
     if (result.changes > 0) return result
