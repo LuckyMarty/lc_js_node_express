@@ -1,16 +1,16 @@
 const jwt = require('jsonwebtoken');
 
 const TokenMiddleware = (req, res, next) => {
-    try {
-        // console.log(jwt.sign({ foo: 'bar' }, 'maSuperCle'));
-        const token = req.headers.authorization.split(" ")[1]
-        const decoded = jwt.verify(token, 'maSuperCle');
-        req.user = decoded
+    const header = req.headers.authorization;
+    const token = header && header.split(' ')[1];
+
+    if (token == null) return res.status(401).json({ message: "Wrong Token" });
+
+    jwt.verify(token, 'maSuperCle', (err, user) => {
+        if (err) return res.status(401).json({ message: "Wrong Token" });
+        req.user = user;
         next()
-    }
-    catch (err) {
-        res.status(401).json({ message: "Wrong Token" })
-    }
+    })
 }
 
 module.exports = TokenMiddleware
