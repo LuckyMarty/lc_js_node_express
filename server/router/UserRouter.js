@@ -8,6 +8,7 @@ UserRouter.post('/login', UserController.login)
 UserRouter.post('/signup', UserController.signup)
 
 UserRouter.post('/data', TokenMiddleware, UserController.data)
+UserRouter.put('/data/details', TokenMiddleware, UserController.editDetails)
 
 
 module.exports = UserRouter

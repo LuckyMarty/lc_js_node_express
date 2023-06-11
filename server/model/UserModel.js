@@ -38,6 +38,10 @@ const signup = async (firstname, lastname, email, password) => {
     else return { error: "Can't add user" }
 }
 
+
+
+// Data
+// Details
 const data = async (email) => {
     const result = await db.database.get('SELECT firstname, lastname, email, role FROM users WHERE email=?', email)
     if (result) {
@@ -48,7 +52,27 @@ const data = async (email) => {
     }
 }
 
+const editDetails = async (email, firstname, lastname, newEmail) => {
+    const result = await db.database.run(
+        'UPDATE users SET firstname=?, lastname=?, email=? WHERE email=?',
+        firstname, lastname, newEmail, email
+    )
 
+    const token = jwt.sign({email:newEmail}, 'maSuperCle')
+    const response = {
+        success: "Saved Successfully",
+        token
+    }
+
+    if (result.changes > 0) return response
+    else return { error: "Can't edit user" }
+}
+
+
+
+
+
+// Functions
 const isEmail = (email) => {
     let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (email.match(regex)) return true; 
@@ -59,5 +83,6 @@ const isEmail = (email) => {
 module.exports = {
     login,
     signup,
-    data
+    data,
+    editDetails
 }
