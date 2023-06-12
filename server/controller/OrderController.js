@@ -12,9 +12,9 @@ const getById = async (req, res) => {
 }
 
 const add = async (req, res) => {
-    const result = await OrderModel.add(req.body.name, req.body.description, req.body.image, req.body.quantity, req.body.price)
+    const result = await OrderModel.add(req.body.id_user, req.body.payment, req.body.total, req.body.date)
     console.log(result);
-    res.status(200).json(result)
+    res.status(200).json(result.changes)
 }
 
 const edit = async (req, res) => {

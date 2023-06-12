@@ -1,26 +1,25 @@
 const db = require('../data/sqlite3')
 
 const getAll = async () => {
-    const result = await db.database.all('SELECT * FROM orders')
+    const result = await db.database.all('SELECT users.firstname, users.lastname, users.email, orders.* FROM orders INNER JOIN users ON users.id = orders.id_user');
     return result
 }
 
 const getById = async (id) => {
-    const result = await db.database.get('SELECT * FROM products WHERE id=?', id)
-    return result
+    const result = await db.database.get('SELECT users.firstname, users.lastname, users.email, orders.* FROM orders INNER JOIN users ON users.id = orders.id_user WHERE orders.id=?', id)
+    if (result) return result
+    else return { error: "No order for that ID" }
 }
 
-const add = async (name, description, image, quantity, price) => {
-
-    if (!name) return { error: "Product Name shouldn't be empty" }
+const add = async (id_user, products, payment, total, date) => {
 
     try {
         const result = await db.database.run(
-            'INSERT INTO products (name, description, image, quantity, price) VALUES (?,?,?,?,?)',
-            name, description, image, quantity, price
+            'INSERT INTO orders (id_user, products, payment, total, status, date) VALUES (?,?,?,?,?,?)',
+            id_user, products, payment, total, "In Payment", date
         )
         if (result.lastID) return result
-        else return { error: "Can't add the product" }
+        else return { error: "Can't add the order" }
     }
     catch (err) {
         console.error(err)
@@ -44,6 +43,7 @@ const remove = async (id) => {
     if (result.changes > 0) return result
     else return { error: "Can't remove the product" }
 }
+
 
 module.exports = {
     getAll,
