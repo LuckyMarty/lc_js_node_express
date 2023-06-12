@@ -1,8 +1,9 @@
 const express = require('express');
 const db = require('./server/data/sqlite3');
-const productRouter = require('./server/router/ProductRouter');
+const cors = require('cors');
+const ProductRouter = require('./server/router/ProductRouter');
 const UserRouter = require('./server/router/userRouter');
-const cors = require('cors')
+const OrderRouter = require('./server/router/OrderRouter');
 
 
 // Connect to database SQLite
@@ -22,7 +23,8 @@ app.use(express.static('./server/public'));
 app.use(express.json())
 
 app.use('/api/user', UserRouter)
-app.use('/api/product', productRouter)
+app.use('/api/product', ProductRouter)
+app.use('/api/order', OrderRouter)
 
 
 // app.use('/', StoreControllerIndex);
