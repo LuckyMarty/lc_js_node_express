@@ -18,7 +18,7 @@ const add = async (req, res) => {
 }
 
 const edit = async (req, res) => {
-    const result = await OrderModel.edit(req.params.id, req.body.name, req.body.description, req.body.image, req.body.quantity, req.body.price)
+    const result = await OrderModel.edit(req.params.id, req.body.id_user, req.body.products, req.body.total, req.body.payment, req.body.status)
     res.status(200).json(result.changes)
 }
 

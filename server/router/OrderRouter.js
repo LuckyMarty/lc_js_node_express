@@ -7,7 +7,7 @@ const OrderRouter = express.Router();
 OrderRouter.get('/', OrderController.getAll);
 OrderRouter.get('/:id', OrderController.getById);
 OrderRouter.post('/', OrderController.add);
-// OrderRouter.put('/:id', TokenMiddleware, ProductController.edit);
+OrderRouter.put('/:id', TokenMiddleware, OrderController.edit);
 // OrderRouter.delete('/:id', TokenMiddleware, ProductController.remove);
 
 

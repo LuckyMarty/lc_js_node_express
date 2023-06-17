@@ -26,10 +26,10 @@ const add = async (id_user, products, payment, total, date) => {
     }
 }
 
-const edit = async (id, name, description, image, quantity, price) => {
+const edit = async (id, id_user, products, total, payment, status) => {
     const result = await db.database.run(
-        'UPDATE products SET name=?, description=?, image=?, quantity=?, price=? WHERE id=?',
-        name, description, image, quantity, price, id
+        'UPDATE orders SET id_user=?, products=?, total=?, payment=?, status=? WHERE id=?',
+        id_user, products, total, payment, status, id
     )
     if (result.changes > 0) return result
     else return { error: "Can't edit the product" }
