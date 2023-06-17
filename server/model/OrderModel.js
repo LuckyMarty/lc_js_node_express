@@ -11,6 +11,12 @@ const getById = async (id) => {
     else return { error: "No order for that ID" }
 }
 
+const getByUserId = async (id) => {
+    const result = await db.database.all('SELECT users.firstname, users.lastname, users.email, orders.* FROM orders INNER JOIN users ON users.id = orders.id_user WHERE orders.id_user=?', id)
+    if (result) return result
+    else return { error: "No order for that ID" }
+}
+
 const add = async (id_user, products, payment, total, date) => {
 
     try {
@@ -48,6 +54,7 @@ const remove = async (id) => {
 module.exports = {
     getAll,
     getById,
+    getByUserId,
     add,
     edit,
     remove

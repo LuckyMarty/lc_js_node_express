@@ -21,9 +21,15 @@ const editDetails = async (req, res) => {
     res.json(result);
 }
 
+const remove = async (req, res) => {
+    const result = await UserModel.remove(req.body.id, req.body.email)
+    res.json(result);
+}
+
 module.exports = {
     login,
     signup,
     data,
-    editDetails
+    editDetails,
+    remove
 }

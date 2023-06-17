@@ -12,7 +12,7 @@ const login = async (email, password) => {
         if (await bcrypt.compare(password, result.password)) {
             delete result.password
             const token = jwt.sign(user, 'maSuperCle');
-            return { message: "User connected", token }
+            return { message: "User connected", token, id: result.id }
         }
         else {
             return { error: "User and/or Password incorrect" }
@@ -41,7 +41,6 @@ const signup = async (firstname, lastname, email, password) => {
 
 
 // Data
-// Details
 const data = async (email) => {
     const result = await db.database.get('SELECT firstname, lastname, email, role FROM users WHERE email=?', email)
     if (result) {
@@ -58,7 +57,7 @@ const editDetails = async (email, firstname, lastname, newEmail) => {
         firstname, lastname, newEmail, email
     )
 
-    const token = jwt.sign({email:newEmail}, 'maSuperCle')
+    const token = jwt.sign({ email: newEmail }, 'maSuperCle')
     const response = {
         success: "Saved Successfully",
         token
@@ -69,14 +68,27 @@ const editDetails = async (email, firstname, lastname, newEmail) => {
 }
 
 
+const remove = async (id, email) => {
+    const userExist = await db.database.get('SELECT * FROM users WHERE id=? AND email=?', id, email)
+    if (userExist) {
+        const result = await db.database.run(
+            'DELETE FROM users WHERE id=? AND email=?',
+            id, email
+        )
+        return true
+    } else return { error: "Can't remove user" }
+
+}
+
+
 
 
 
 // Functions
 const isEmail = (email) => {
     let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (email.match(regex)) return true; 
-    else return false; 
+    if (email.match(regex)) return true;
+    else return false;
 }
 
 
@@ -84,5 +96,6 @@ module.exports = {
     login,
     signup,
     data,
-    editDetails
+    editDetails,
+    remove
 }

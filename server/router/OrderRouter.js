@@ -4,9 +4,10 @@ const TokenMiddleware = require('./middleware/TokenMiddleware')
 
 const OrderRouter = express.Router();
 
-OrderRouter.get('/', OrderController.getAll);
-OrderRouter.get('/:id', OrderController.getById);
-OrderRouter.post('/', OrderController.add);
+OrderRouter.get('/', TokenMiddleware, OrderController.getAll);
+OrderRouter.get('/:id', TokenMiddleware, OrderController.getById);
+OrderRouter.get('/user/:id', TokenMiddleware, OrderController.getByUserId);
+OrderRouter.post('/', TokenMiddleware, OrderController.add);
 OrderRouter.put('/:id', TokenMiddleware, OrderController.edit);
 // OrderRouter.delete('/:id', TokenMiddleware, ProductController.remove);
 
