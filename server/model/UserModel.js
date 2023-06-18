@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
+
 const login = async (email, password) => {
     const result = await db.database.get('SELECT * FROM users WHERE email=?', email)
     if (result) {
@@ -22,6 +23,7 @@ const login = async (email, password) => {
     }
 }
 
+
 const signup = async (firstname, lastname, email, password) => {
 
     if (isEmail(email)) return { error: "Your email must be in a correct format" };
@@ -39,8 +41,6 @@ const signup = async (firstname, lastname, email, password) => {
 }
 
 
-
-// Data
 const data = async (email) => {
     const result = await db.database.get('SELECT firstname, lastname, email, role FROM users WHERE email=?', email)
     if (result) {
@@ -51,11 +51,23 @@ const data = async (email) => {
     }
 }
 
-const editDetails = async (email, firstname, lastname, newEmail) => {
-    const result = await db.database.run(
-        'UPDATE users SET firstname=?, lastname=?, email=? WHERE email=?',
-        firstname, lastname, newEmail, email
-    )
+
+const editDetails = async (email, firstname, lastname, newEmail, password) => {
+    let result = null;
+
+    if (password) {
+        const hash = await bcrypt.hash(password, saltRounds)
+        result = await db.database.run(
+            'UPDATE users SET firstname=?, lastname=?, email=?, password=? WHERE email=?',
+            firstname, lastname, newEmail, hash, email
+        )
+    } else {
+        result = await db.database.run(
+            'UPDATE users SET firstname=?, lastname=?, email=? WHERE email=?',
+            firstname, lastname, newEmail, email
+        )
+    }
+
 
     const token = jwt.sign({ email: newEmail }, 'maSuperCle')
     const response = {
@@ -79,9 +91,6 @@ const remove = async (id, email) => {
     } else return { error: "Can't remove user" }
 
 }
-
-
-
 
 
 // Functions

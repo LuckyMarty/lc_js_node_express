@@ -17,7 +17,7 @@ const data = async (req, res) => {
 }
 
 const editDetails = async (req, res) => {
-    const result = await UserModel.editDetails(req.user.email, req.body.firstname, req.body.lastname, req.body.email)
+    const result = await UserModel.editDetails(req.user.email, req.body.firstname, req.body.lastname, req.body.email, req.body.password)
     res.json(result);
 }
 
