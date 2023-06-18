@@ -14,7 +14,6 @@ const getById = async (req, res) => {
 
 const add = async (req, res) => {
     const result = await ProductModel.add(req.body.name, req.body.description, req.body.image, req.body.quantity, req.body.price)
-    console.log(result);
     res.status(200).json(result)
 }
 

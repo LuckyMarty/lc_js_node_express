@@ -18,12 +18,22 @@ const getByUserId = async (id) => {
 }
 
 const add = async (id_user, products, payment, total, date) => {
-
     try {
         const result = await db.database.run(
             'INSERT INTO orders (id_user, products, payment, total, status, date) VALUES (?,?,?,?,?,?)',
             id_user, products, payment, total, "In Payment", date
         )
+
+        JSON.parse(products).forEach(async (product) => {
+            const maxQuantity = await db.database.get('SELECT quantity FROM products WHERE id=?', product.id)
+
+            await db.database.run(
+                'UPDATE products SET quantity=? WHERE id=?',
+                ((+maxQuantity.quantity) - (+product.cartquantity)), product.id
+            )
+        });
+
+
         if (result.lastID) return result
         else return { error: "Can't add the order" }
     }
