@@ -17,7 +17,12 @@ const data = async (req, res) => {
 }
 
 const editDetails = async (req, res) => {
-    const result = await UserModel.editDetails(req.user.email, req.body.firstname, req.body.lastname, req.body.email)
+    const result = await UserModel.editDetails(req.user.email, req.body.firstname, req.body.lastname, req.body.email, req.body.password)
+    res.json(result);
+}
+
+const remove = async (req, res) => {
+    const result = await UserModel.remove(req.body.id, req.body.email)
     res.json(result);
 }
 
@@ -25,5 +30,6 @@ module.exports = {
     login,
     signup,
     data,
-    editDetails
+    editDetails,
+    remove
 }

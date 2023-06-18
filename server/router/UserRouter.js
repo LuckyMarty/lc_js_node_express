@@ -10,5 +10,7 @@ UserRouter.post('/signup', UserController.signup)
 UserRouter.post('/data', TokenMiddleware, UserController.data)
 UserRouter.put('/data/details', TokenMiddleware, UserController.editDetails)
 
+UserRouter.delete('/', TokenMiddleware, UserController.remove)
+
 
 module.exports = UserRouter
