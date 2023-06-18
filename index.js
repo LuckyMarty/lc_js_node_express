@@ -26,7 +26,4 @@ app.use('/api/user', UserRouter)
 app.use('/api/product', ProductRouter)
 app.use('/api/order', OrderRouter)
 
-
-// app.use('/', StoreControllerIndex);
-// app.use('/mon-compte', CompteBancaireController);
 app.listen(3000);
